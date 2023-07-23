@@ -11,13 +11,13 @@ const theMap = {
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+        }).addTo(this.map);
 
-        const currentPosition = L.marker(this.coordinates).addTo(this.map);
+        L.marker(this.coordinates).addTo(this.map);
     },
 
     busMarkers() {
-        forEach(businesses =>
+        businesses.forEach(element =>
             this.markers = L.marker([
                 this.business.lat,
                 this.business.long,
@@ -51,6 +51,19 @@ async function FourSquare(business) {
     let data = await response.text()
 	let parsedData = JSON.parse(data)
 	let businesses = parsedData.results
-	return businesses
+	return businesses 
 
-}        
+} 
+
+async function makeBusinessesArray(data) {
+    let businesses = data.map((element) => {
+		let location = {
+			name: element.name,
+			lat: element.geocodes.main.latitude,
+			long: element.geocodes.main.longitude
+		};
+		return location
+	})
+	return businesses
+}
+
