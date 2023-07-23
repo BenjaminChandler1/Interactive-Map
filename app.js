@@ -56,7 +56,7 @@ async function FourSquare(business) {
 } 
 
 async function makeBusinessesArray(data) {
-    let businesses = data.map((element) => {
+    let businesses = await data.map((element) => {
 		let location = {
 			name: element.name,
 			lat: element.geocodes.main.latitude,
