@@ -67,3 +67,8 @@ async function makeBusinessesArray(data) {
 	return businesses
 }
 
+document.getElementById('search').addEventListener('click', async (event) => {
+	let business = document.getElementById('business').value
+	let data = await FourSquare(business)
+	theMap.businesses = makeBusinessesArray(data)
+})
